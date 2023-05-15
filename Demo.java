@@ -6,10 +6,10 @@ class MyThread extends Thread {
 	public void run() {
 		for (int i = 0; i < 100; i++) {
 			System.out.println(getName() + " : " + i);
-			if (i % 10 == 0) {
-				Thread.yield();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException ex) {
 			}
-			// try{Thread.sleep(100);}catch(InterruptedException ex){}
 		}
 	}
 }
@@ -17,12 +17,19 @@ class MyThread extends Thread {
 class Demo {
 	public static void main(String args[]) {
 		MyThread t1 = new MyThread("One");
-		MyThread t2 = new MyThread("Two");
-		MyThread t3 = new MyThread("Three");
-
 		t1.start();
-		t2.start();
-		t3.start();
-
+		for (int i = 0; i < 100; i++) {
+			System.out.println("main : " + i);
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException ex) {
+			}
+			if (i == 50) {
+				try {
+					t1.join();
+				} catch (InterruptedException ex) {
+				}
+			}
+		}
 	}
 }
