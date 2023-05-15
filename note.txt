@@ -1,0 +1,208 @@
+Q1
+class Demo{
+	public static void main(String args[]){
+		for (int i = 0; i < 100; i++){
+			System.out.println("Program A : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}
+		
+		for (int i = 0; i < 100; i++){
+			System.out.println("Program B : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}
+		
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+Q2
+class MyThread extends Thread{
+	public void run(){
+	for (int i = 0; i < 100; i++){
+			System.out.println("Program B : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}		
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		for (int i = 0; i < 100; i++){
+			System.out.println("Program A : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}
+	}
+}
+//////////////////////////////////////////////////////////////////
+Q3
+class MyThread extends Thread{
+	public void run(){
+	for (int i = 0; i < 100; i++){
+			System.out.println("Program B : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}		
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		for (int i = 0; i < 100; i++){
+			System.out.println("Program A : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}
+		MyThread t1=new MyThread();
+	}
+}
+//////////////////////////////////////////////////////////////
+Q4
+class MyThread extends Thread{
+	public void run(){
+	for (int i = 0; i < 100; i++){
+			System.out.println("Program B : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}		
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		for (int i = 0; i < 100; i++){
+			System.out.println("Program A : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}
+		MyThread t1=new MyThread();
+		t1.start();
+	}
+}
+///////////////////////////////////////////////////////////////
+Q5
+class MyThread extends Thread{
+	public void run(){
+	for (int i = 0; i < 100; i++){
+			System.out.println("Program B : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}		
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyThread t1=new MyThread();
+		t1.start();
+		for (int i = 0; i < 100; i++){
+			System.out.println("Program A : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}
+		
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q6
+class MyThreadA extends Thread{
+	public void run(){
+	for (int i = 0; i < 100; i++){
+			System.out.println("Program A : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}		
+	}
+}
+class MyThreadB extends Thread{
+	public void run(){
+	for (int i = 0; i < 100; i++){
+			System.out.println("Program B : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}		
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		new MyThreadA().start();
+		new MyThreadB().start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q7 method "run()" vs "start()"
+==============================
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+class MyFrame extends JFrame{
+	private JButton exitButton;
+	
+	MyFrame(){
+		setSize(300,300);
+		setTitle("MyFrame");
+		setDefaultCloseOperation(EXIT_ON_CLOSE); 
+		setLocationRelativeTo(null);
+		
+		exitButton=new JButton();
+		exitButton.setText("Exit");
+		exitButton.setFont(new Font("",1,30));
+		exitButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				int i=0;
+				while(true){
+					System.out.println("i : "+i++);
+				}
+			}
+		});
+		add(exitButton);
+	}	
+}
+class Demo{
+	public static void main(String args[]){
+		new MyFrame().setVisible(true);
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q8
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+class MyFrame extends JFrame{
+	private JButton exitButton;
+	private JTextField text;
+	MyFrame(){
+		setSize(300,300);
+		setTitle("MyFrame");
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
+		setLocationRelativeTo(null);
+		setLayout(new FlowLayout());
+		
+		text=new JTextField(10);
+		text.setFont(new Font("",1,30));
+		add(text);
+		
+		exitButton=new JButton();
+		exitButton.setText("Exit");
+		exitButton.setFont(new Font("",1,30));
+		exitButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				String name=text.getText();
+				class MyThread extends Thread{
+					public void run(){
+						int i=0;
+						while(true){
+							System.out.println(name+" : "+i++);
+						}
+					}
+				}
+				new MyThread().start();
+				
+			}
+		});
+		add(exitButton);
+	}	
+}
+class Demo{
+	public static void main(String args[]){
+		new MyFrame().setVisible(true);
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q9
+
+///////////////////////////////////////////////////////////////
+Q10
+
+
