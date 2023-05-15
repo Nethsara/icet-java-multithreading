@@ -460,13 +460,66 @@ class Demo{
 }
 
 ///////////////////////////////////////////////////////////////
-Q19
+Q19 From Q15
+============
+class MyThread extends Thread{
+	MyThread(String name){
+		setName(name);
+	}
+	public void run(){
+		for(int i=0; i<100; i++){
+			System.out.println(getName()+" : "+i);
+			//try{Thread.sleep(100);}catch(InterruptedException ex){}
+		}
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyThread t1=new MyThread("One"); 
+		MyThread t2=new MyThread("Two"); 
+		MyThread t3=new MyThread("Three"); 
+		
+		System.out.println("State t1 : "+t1.getState());
+		System.out.println("State t2 : "+t2.getState());
+		System.out.println("State t3 : "+t3.getState());
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		
+		try{
+			t1.join();
+			t2.join();
+			t3.join();
+		}catch(InterruptedException ex){}
+		System.out.println("State t1 : "+t1.getState());
+		System.out.println("State t2 : "+t2.getState());
+		System.out.println("State t3 : "+t3.getState());
+	}
+}
 
 ///////////////////////////////////////////////////////////////
-Q20
+Q20 Exercise
+============
+class Demo{
+	public static void main(String args[]){
+		Thread t1=Thread.currentThread();
+		System.out.println("Start main");
+		try{t1.join();}catch(Exception ex){}
+		System.out.println("End main");
+	}
+}
 
 ///////////////////////////////////////////////////////////////
 Q21
+class Demo{
+	public static void main(String args[]){
+		Thread t1=Thread.currentThread();
+		System.out.println("Start main");
+		try{t1.join(4000);}catch(Exception ex){}
+		System.out.println("End main");
+	}
+}
 
 ///////////////////////////////////////////////////////////////
 Q22
@@ -496,5 +549,3 @@ Q29
 Q30
 
 
-
-play sound
