@@ -256,6 +256,7 @@ class MyThread extends Thread{
 	public void run(){
 		for(int i=0; i<100; i++){
 			System.out.println(getName()+" : "+i);
+			try{Thread.sleep(100);}catch(InterruptedException ex){}
 		}
 	}
 }
@@ -273,16 +274,133 @@ class Demo{
 
 ///////////////////////////////////////////////////////////////
 Q13
+class MyThread extends Thread{
+	MyThread(String name){
+		setName(name);
+	}
+	public void run(){
+		for(int i=0; i<100; i++){
+			System.out.println(getName()+" : "+i);
+			try{Thread.sleep(100);}catch(InterruptedException ex){}
+		}
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyThread t1=new MyThread("One"); 
+		MyThread t2=new MyThread("Two"); 
+		MyThread t3=new MyThread("Three"); 
+		
+		System.out.println("State t1 : "+t1.getState());
+		System.out.println("State t2 : "+t2.getState());
+		System.out.println("State t3 : "+t3.getState());
+		
+	}
+}
 
 ///////////////////////////////////////////////////////////////
-Q14
+Q14 From Q13
+============
+class MyThread extends Thread{
+	MyThread(String name){
+		setName(name);
+	}
+	public void run(){
+		for(int i=0; i<100; i++){
+			System.out.println(getName()+" : "+i);
+			try{Thread.sleep(100);}catch(InterruptedException ex){}
+		}
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyThread t1=new MyThread("One"); 
+		MyThread t2=new MyThread("Two"); 
+		MyThread t3=new MyThread("Three"); 
+		
+		System.out.println("State t1 : "+t1.getState());
+		System.out.println("State t2 : "+t2.getState());
+		System.out.println("State t3 : "+t3.getState());
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		
+		System.out.println("State t1 : "+t1.getState());
+		System.out.println("State t2 : "+t2.getState());
+		System.out.println("State t3 : "+t3.getState());
+	}
+}
 
 ///////////////////////////////////////////////////////////////
-Q15
+Q15 From Q13
+============
+class MyThread extends Thread{
+	MyThread(String name){
+		setName(name);
+	}
+	public void run(){
+		for(int i=0; i<100; i++){
+			System.out.println(getName()+" : "+i);
+			//try{Thread.sleep(100);}catch(InterruptedException ex){}
+		}
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyThread t1=new MyThread("One"); 
+		MyThread t2=new MyThread("Two"); 
+		MyThread t3=new MyThread("Three"); 
+		
+		System.out.println("State t1 : "+t1.getState());
+		System.out.println("State t2 : "+t2.getState());
+		System.out.println("State t3 : "+t3.getState());
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		
+		try{Thread.sleep(2000);}catch(InterruptedException ex){}
+		System.out.println("State t1 : "+t1.getState());
+		System.out.println("State t2 : "+t2.getState());
+		System.out.println("State t3 : "+t3.getState());
+	}
+}
 
+///////////////////////////////////////////////////////////////
+	Thread Priority
 ///////////////////////////////////////////////////////////////
 Q16
+class MyThread extends Thread{
+	MyThread(String name){
+		setName(name);
+	}
+	public void run(){
+		for(int i=0; i<100; i++){
+			System.out.println(getName()+" : "+i);
+			//try{Thread.sleep(100);}catch(InterruptedException ex){}
+		}
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyThread t1=new MyThread("One"); 
+		MyThread t2=new MyThread("Two"); 
+		MyThread t3=new MyThread("Three"); 
+		
+		t1.setPriority(6);
+		t2.setPriority(7);
+		t3.setPriority(8);
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		
+	}
+}
 
+///////////////////////////////////////////////////////////////
+	Thread Yielding
 ///////////////////////////////////////////////////////////////
 Q17
 
@@ -296,3 +414,5 @@ Q19
 Q20
 
 
+
+play sound
