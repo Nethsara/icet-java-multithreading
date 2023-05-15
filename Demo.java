@@ -1,40 +1,23 @@
+class MyRunnable implements Runnable {
+	public void run() {
+		System.out.println("MyRunnable");
+	}
+}
+
 class MyThread extends Thread {
-	MyThread(String name) {
-		setName(name);
+	MyThread(Runnable target) {
+		super(target);
 	}
 
 	public void run() {
-		for (int i = 0; i < 100; i++) {
-			System.out.println(getName() + " : " + i);
-			// try {
-			// Thread.sleep(100);
-			// } catch (InterruptedException ex) {
-			// }
-		}
+		System.out.println("Th");
 	}
 }
 
 class Demo {
 	public static void main(String args[]) {
-		MyThread t1 = new MyThread("One");
-		MyThread t2 = new MyThread("Two");
-		MyThread t3 = new MyThread("Three");
-
-		System.out.println("State t1 : " + t1.getState());
-		System.out.println("State t2 : " + t2.getState());
-		System.out.println("State t3 : " + t3.getState());
-
+		MyRunnable r = new MyRunnable();
+		MyThread t1 = new MyThread(r);
 		t1.start();
-		t2.start();
-		t3.start();
-
-		try {
-			t1.join();
-		} catch (Exception e) {
-		}
-
-		System.out.println("State t1 : " + t1.getState());
-		System.out.println("State t2 : " + t2.getState());
-		System.out.println("State t3 : " + t3.getState());
 	}
 }

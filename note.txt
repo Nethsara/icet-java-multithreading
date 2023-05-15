@@ -492,6 +492,7 @@ class Demo{
 			t2.join();
 			t3.join();
 		}catch(InterruptedException ex){}
+
 		System.out.println("State t1 : "+t1.getState());
 		System.out.println("State t2 : "+t2.getState());
 		System.out.println("State t3 : "+t3.getState());
@@ -522,30 +523,228 @@ class Demo{
 }
 
 ///////////////////////////////////////////////////////////////
-Q22
+	Create and run a thread
+///////////////////////////////////////////////////////////////
+Q22 Method 1 (Using anonymous inner classes)
+============================================
+class Demo{
+	public static void main(String args[]){
+		
+		Thread t1=new Thread(){
+			public void run(){
+				//
+			}
+		}; 
+		t1.start();
+		
+		new Thread(){
+			public void run(){
+				for (int i = 0; i < 100; i++){
+					System.out.println("Program A : "+i);
+					try{Thread.sleep(100);}catch(Exception ex){}
+				}
+			}
+		}.start();
+		
+		for (int i = 0; i < 100; i++){
+			System.out.println("Program B : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}
+		
+	}
+}
 
 ///////////////////////////////////////////////////////////////
-Q23
+Q23 Using "Runnable" target
+===========================
+class MyRunnable implements Runnable{
+	public void run(){
+		for (int i = 0; i < 100; i++){
+			System.out.println("Program A : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		Thread t1=new Thread(new MyRunnable());
+		t1.start();
+		for (int i = 0; i < 100; i++){
+			System.out.println("Program B : "+i);
+			try{Thread.sleep(100);}catch(Exception ex){}
+		}
+		
+	}
+}
 
 ///////////////////////////////////////////////////////////////
-Q24
+Q24 From Q23
+============
+class Demo{
+	public static void main(String args[]){
+		new Thread(new Runnable(){
+			public void run(){
+				for (int i = 0; i < 100; i++){
+					System.out.println("Program A : "+i);
+					try{Thread.sleep(100);}catch(Exception ex){}
+				}
+			}
+		}).start();
+		
+		new Thread(){
+			public void run(){	
+				for (int i = 0; i < 100; i++){
+					System.out.println("Program B : "+i);
+					try{Thread.sleep(100);}catch(Exception ex){}
+				}
+			}
+		}.start();
+	}
+}
 
 ///////////////////////////////////////////////////////////////
-Q25
+Q25 Exercise 1
+===============
+class MyRunnable implements Runnable{
+	public void run(){
+		System.out.println("MyRunnable");
+	}
+}
+class MyThread extends Thread{
+	
+}
+class Demo{
+	public static void main(String args[]){
+		MyRunnable r=new MyRunnable();
+		MyThread t1=new MyThread(r);
+		t1.start();
+	}
+}
 
 ///////////////////////////////////////////////////////////////
-Q26
+Q26 Exercise 2
+==============
+class MyRunnable implements Runnable{
+	public void run(){
+		System.out.println("MyRunnable");
+	}
+}
+class MyThread extends Thread{
+	MyThread(Runnable target){
+		
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyRunnable r=new MyRunnable();
+		MyThread t1=new MyThread(r);
+		t1.start();
+	}
+}
 
 ///////////////////////////////////////////////////////////////
-Q27
+Q27 Exercise 3
+==============
+class MyRunnable implements Runnable{
+	public void run(){
+		System.out.println("MyRunnable");
+	}
+}
+class MyThread extends Thread{
+	MyThread(Runnable target){
+		super(target);
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyRunnable r=new MyRunnable();
+		MyThread t1=new MyThread(r);
+		t1.start();
+	}
+}
 
 ///////////////////////////////////////////////////////////////
-Q28
+Q28 Exercise 4
+==============
+class MyRunnable implements Runnable{
+	public void run(){
+		System.out.println("MyRunnable");
+	}
+}
+class MyThread extends Thread{
+	MyThread(Runnable target){
+		super(target);
+	}
+	public void run(){
+		System.out.println("MyThread");
+	}	
+}
+class Demo{
+	public static void main(String args[]){
+		MyRunnable r=new MyRunnable();
+		MyThread t1=new MyThread(r);
+		t1.start();
+	}
+}
 
 ///////////////////////////////////////////////////////////////
-Q29
+Q29 Method 3 Using Lambda Expression
+====================================
+class Demo{
+	public static void main(String args[]){
+		
+		Runnable r=()->{
+			for (int i = 0; i < 100; i++){
+				System.out.println("Program A : "+i);
+				try{Thread.sleep(100);}catch(Exception ex){}
+			}
+		};
+		
+		new Thread(r).start();
+		
+		//=====================================================
+		new Thread(){
+			public void run(){	
+				for (int i = 0; i < 100; i++){
+					System.out.println("Program B : "+i);
+					try{Thread.sleep(100);}catch(Exception ex){}
+				}
+			}
+		}.start();
+	}
+}
 
 ///////////////////////////////////////////////////////////////
 Q30
+class Demo{
+	public static void main(String args[]){
+		new Thread(()->{
+			for (int i = 0; i < 100; i++){
+				System.out.println("Program A : "+i);
+				try{Thread.sleep(100);}catch(Exception ex){}
+			}
+		}).start();
+		
+		//=====================================================
+		new Thread(){
+			public void run(){	
+				for (int i = 0; i < 100; i++){
+					System.out.println("Program B : "+i);
+					try{Thread.sleep(100);}catch(Exception ex){}
+				}
+			}
+		}.start();
+	}
+}
 
+///////////////////////////////////////////////////////////////
+	Synchronization
+///////////////////////////////////////////////////////////////
+Q31
+
+///////////////////////////////////////////////////////////////
+Q32
+
+///////////////////////////////////////////////////////////////
+Q33
 
