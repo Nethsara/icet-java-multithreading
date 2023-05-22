@@ -1377,11 +1377,240 @@ class Demo{
 
 ///////////////////////////////////////////////////////////////
 Q48
+class MyClass{
+	synchronized public void callWait(String name){
+		System.out.println("Waiting   : "+name);
+		try{wait();}catch(Exception ex){}
+		System.out.println("Notifying : "+name);
+	}
+	synchronized public void notifyThreads(){
+		notify();
+	}
+}
+
+class MyThread extends Thread{
+	MyClass c1;
+	MyThread(String name, MyClass c1){
+		super(name);
+		this.c1=c1;
+	}
+	public void run(){
+		c1.callWait(getName());
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyClass c1=new MyClass();
+		Thread t1=new MyThread("One",c1);
+		Thread t2=new MyThread("Two",c1);
+		Thread t3=new MyThread("Three",c1);
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		//
+		new Thread(){
+			public void run(){
+				c1.notifyThreads();
+			}
+		}.start();
+		
+	}
+}
 
 ///////////////////////////////////////////////////////////////
 Q49
+class MyClass{
+	synchronized public void callWait(String name){
+		System.out.println("Waiting   : "+name);
+		try{wait();}catch(Exception ex){}
+		System.out.println("Notifying : "+name);
+	}
+	synchronized public void notifyThreads(){
+		notify();
+	}
+	synchronized public void notifyAllThreads(){
+		notifyAll();
+	}
+}
+
+class MyThread extends Thread{
+	MyClass c1;
+	MyThread(String name, MyClass c1){
+		super(name);
+		this.c1=c1;
+	}
+	public void run(){
+		c1.callWait(getName());
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyClass c1=new MyClass();
+		Thread t1=new MyThread("One",c1);
+		Thread t2=new MyThread("Two",c1);
+		Thread t3=new MyThread("Three",c1);
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		//
+		try{Thread.sleep(1000);}catch(Exception ex){}
+		new Thread(){
+			public void run(){
+				c1.notifyAllThreads();
+			}
+		}.start();
+		
+	}
+}
 
 ///////////////////////////////////////////////////////////////
 Q50
+class MyClass{
+	synchronized public void callWait(String name){
+		System.out.println("Waiting   : "+name);
+		try{wait(3000);}catch(Exception ex){}
+		System.out.println("Notifying : "+name);
+	}
+	synchronized public void notifyThreads(){
+		notify();
+	}
+	synchronized public void notifyAllThreads(){
+		notifyAll();
+	}
+}
 
+class MyThread extends Thread{
+	MyClass c1;
+	MyThread(String name, MyClass c1){
+		super(name);
+		this.c1=c1;
+	}
+	public void run(){
+		c1.callWait(getName());
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyClass c1=new MyClass();
+		Thread t1=new MyThread("One",c1);
+		Thread t2=new MyThread("Two",c1);
+		Thread t3=new MyThread("Three",c1);
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		//
+		try{Thread.sleep(5000);}catch(Exception ex){}
+		new Thread(){
+			public void run(){
+				c1.notifyAllThreads();
+			}
+		}.start();
+		
+	}
+}
 
+/////////////////////////////////////////////////////////////////////////////////////////
+class MyClass{
+	synchronized public void callWait(String name){
+		System.out.println("Waiting   : "+name);
+		try{wait();}catch(Exception ex){}
+		System.out.println("Notifying : "+name);
+	}
+	synchronized public void notifyThreads(){
+		notify();
+	}
+	synchronized public void notifyAllThreads(){
+		notifyAll();
+	}
+}
+
+class MyThread extends Thread{
+	MyClass c1;
+	MyThread(String name, MyClass c1){
+		super(name);
+		this.c1=c1;
+	}
+	public void run(){
+		c1.callWait(getName());
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		MyClass c1=new MyClass();
+		MyClass c2=new MyClass();
+		Thread t1=new MyThread("One",c1);
+		Thread t2=new MyThread("Two",c1);
+		Thread t3=new MyThread("Three",c1);
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		//
+		try{Thread.sleep(2000);}catch(Exception ex){}
+		new Thread(){
+			public void run(){
+				c2.notifyAllThreads();
+			}
+		}.start();
+		
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+class A{}
+class MyThread extends Thread{
+	A a1;
+	A a2;
+	MyThread(A a1, A a2){
+		this.a1=a1;
+		this.a2=a2;
+	}
+	public void run(){
+		synchronized(a1){
+			//
+			synchronized(a2){
+				//
+			}
+		}
+	}
+	
+}
+class Demo{
+	public static void main(String args[]){
+		A a1=new A();
+		A a2=new A();
+		new MyThread(a1,a2).start();
+		new MyThread(a2,a1).start();
+	}
+}
+//////////////////////////////////////////////////////////////////////////////////////
+class A{}
+class Demo{
+	public static void main(String args[]){
+		A a1=new A();
+		A a2=new A();
+		new Thread(){
+			public void run(){
+				synchronized(a1){
+				//yield or sleep
+					synchronized(a2){
+					//
+					}
+				}
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				synchronized(a2){
+				//yield or sleep
+					synchronized(a1){
+					//
+					}
+				}
+			}
+		}.start();
+	}
+}
