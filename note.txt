@@ -1072,6 +1072,252 @@ class Demo{
 }
 
 ///////////////////////////////////////////////////////////////
-Q40
+Q40 Case I
+==========
+class CustomerController{
+	public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		Object ob1=new Object();
+		Object ob2=new Object();
+		new Thread(){
+			public void run(){
+				//
+				synchronized(ob1){
+					c1.addCustomer("C001","Danapala");
+				}
+				//
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				synchronized(ob2){
+					c1.addCustomer("C002","Gunapala");
+				}
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q41
+class CustomerController{
+	public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		new Thread(){
+			public void run(){
+				//
+				synchronized(c1){
+					c1.addCustomer("C001","Danapala");
+				}
+				//
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				synchronized(c1){
+					c1.addCustomer("C002","Gunapala");
+				}
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q42
+class CustomerController{
+	public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		new Thread(){
+			public void run(){
+				//
+				synchronized(c1.getClass()){
+					c1.addCustomer("C001","Danapala");
+				}
+				//
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				synchronized(CustomerController.class){
+					c1.addCustomer("C002","Gunapala");
+				}
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q43
+class CustomerController{
+	public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		new Thread(){
+			public void run(){
+				//
+				synchronized(new String("abc")){
+					c1.addCustomer("C001","Danapala");
+				}
+				//
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				synchronized(new String("abc")){
+					c1.addCustomer("C002","Gunapala");
+				}
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q44
+class CustomerController{
+	public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		new Thread(){
+			public void run(){
+				//
+				synchronized("abc"){
+					c1.addCustomer("C001","Danapala");
+				}
+				//
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				synchronized("abc"){
+					c1.addCustomer("C002","Gunapala");
+				}
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q45
+class CustomerController{
+	public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+	static synchronized public void addOrder(String id, String name){
+		System.out.print("{");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("}");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		new Thread(){
+			public void run(){
+				//
+				synchronized(CustomerController.class){
+					c1.addCustomer("C001","Danapala");
+				}
+				//
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				c1.addOrder("P001","Suger");
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q46
+
+///////////////////////////////////////////////////////////////
+Q47
+
+///////////////////////////////////////////////////////////////
+Q48
+
+///////////////////////////////////////////////////////////////
+Q49
+
+///////////////////////////////////////////////////////////////
+Q50
 
 
