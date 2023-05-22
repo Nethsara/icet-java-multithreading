@@ -1306,10 +1306,74 @@ class Demo{
 }
 
 ///////////////////////////////////////////////////////////////
+Inter-thread communications
+///////////////////////////////////////////////////////////////
 Q46
+class Bucket{
+	public void get(int i){
+		System.out.println("get : "+i);
+	}
+	public void put(int i){
+		System.out.println("put : "+i);
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		Bucket b1=new Bucket();
+		new Thread(){
+			public void run(){
+				for(int i=0; i<50; i++){
+					b1.get(i);
+				}
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				for(int i=0; i<50; i++){
+					b1.put(i);
+				}
+			}
+		}.start();
+	}
+}
 
 ///////////////////////////////////////////////////////////////
 Q47
+class Bucket{
+	synchronized public void get(int i){
+		notify();
+		System.out.println("get : "+i);
+		try{
+			wait();
+		}catch(Exception ex){}
+	}
+	synchronized public void put(int i){
+		notify();
+		System.out.println("put : "+i);
+		try{
+			wait();
+		}catch(Exception ex){}		
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		Bucket b1=new Bucket();
+		new Thread(){
+			public void run(){
+				for(int i=0; i<50; i++){
+					b1.get(i);
+				}
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				for(int i=0; i<50; i++){
+					b1.put(i);
+				}
+			}
+		}.start();
+	}
+}
 
 ///////////////////////////////////////////////////////////////
 Q48

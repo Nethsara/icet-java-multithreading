@@ -1,68 +1,40 @@
-class CustomerController {
-	public void addCustomer(String id, String name) {
-		System.out.print("[");
+class Bucket {
+	synchronized public void get(int i) {
+		notify();
+		System.out.println("get : " + i);
 		try {
-			Thread.sleep(500);
-		} catch (Exception ex) {
+			wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		System.out.print(id);
-		try {
-			Thread.sleep(500);
-		} catch (Exception ex) {
-		}
-		System.out.print("-");
-		try {
-			Thread.sleep(500);
-		} catch (Exception ex) {
-		}
-		System.out.print(name);
-		try {
-			Thread.sleep(500);
-		} catch (Exception ex) {
-		}
-		System.out.println("]");
 	}
 
-	static synchronized public void addOrder(String id, String name) {
-		System.out.print("{");
+	synchronized public void put(int i) {
+		notify();
+		System.out.println("put : " + i);
 		try {
-			Thread.sleep(500);
-		} catch (Exception ex) {
+			wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		System.out.print(id);
-		try {
-			Thread.sleep(500);
-		} catch (Exception ex) {
-		}
-		System.out.print("-");
-		try {
-			Thread.sleep(500);
-		} catch (Exception ex) {
-		}
-		System.out.print(name);
-		try {
-			Thread.sleep(500);
-		} catch (Exception ex) {
-		}
-		System.out.println("}");
 	}
 }
 
 class Demo {
 	public static void main(String args[]) {
-		CustomerController c1 = new CustomerController();
+		Bucket b1 = new Bucket();
 		new Thread() {
 			public void run() {
-				//
-				synchronized (CustomerController.class) {
-					c1.addCustomer("C001", "Danapala");
+				for (int i = 0; i < 50; i++) {
+					b1.get(i);
 				}
-				//
 			}
 		}.start();
 		new Thread() {
 			public void run() {
-				c1.addOrder("P001", "Suger");
+				for (int i = 0; i < 50; i++) {
+					b1.put(i);
+				}
 			}
 		}.start();
 	}
