@@ -1,5 +1,5 @@
 class CustomerController {
-	synchronized public void addCustomer(String id, String name) {
+	public void addCustomer(String id, String name) {
 		System.out.print("[");
 		try {
 			Thread.sleep(500);
@@ -27,14 +27,21 @@ class CustomerController {
 class Demo {
 	public static void main(String args[]) {
 		CustomerController c1 = new CustomerController();
+		Object ob = new Object();
 		new Thread() {
 			public void run() {
-				c1.addCustomer("C001", "Danapala");
+				//
+				synchronized (ob) {
+					c1.addCustomer("C001", "Danapala");
+				}
+				//
 			}
 		}.start();
 		new Thread() {
 			public void run() {
-				c1.addCustomer("C002", "Gunapala");
+				synchronized (ob) {
+					c1.addCustomer("C002", "Gunapala");
+				}
 			}
 		}.start();
 	}

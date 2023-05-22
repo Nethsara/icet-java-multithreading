@@ -826,5 +826,252 @@ class Demo{
 }
 
 
+///////////////////////////////////////////////////////////////
+Q34 Case I
+==========
+class CustomerController{
+	synchronized public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		CustomerController c2=new CustomerController();
+		new Thread(){
+			public void run(){
+				c1.addCustomer("C001","Danapala");
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				c2.addCustomer("C002","Gunapala");
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q35 Case II
+===========
+class CustomerController{
+	synchronized public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+	public void addOrder(String id, String name){
+		System.out.print("{");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("}");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		new Thread(){
+			public void run(){
+				c1.addCustomer("C001","Danapala");
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				c1.addOrder("P001","Suger");
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q36 Case III
+============
+class CustomerController{
+	synchronized public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+	synchronized public void addOrder(String id, String name){
+		System.out.print("{");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("}");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		new Thread(){
+			public void run(){
+				c1.addCustomer("C001","Danapala");
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				c1.addOrder("P001","Suger");
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q37 Case IV
+===========
+class CustomerController{
+	static synchronized public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+	synchronized public void addOrder(String id, String name){
+		System.out.print("{");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("}");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		new Thread(){
+			public void run(){
+				c1.addCustomer("C001","Danapala");
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				c1.addOrder("P001","Suger");
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q38 Case V
+===========
+class CustomerController{
+	static synchronized public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+	static synchronized public void addOrder(String id, String name){
+		System.out.print("{");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("}");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		new Thread(){
+			public void run(){
+				c1.addCustomer("C001","Danapala");
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				c1.addOrder("P001","Suger");
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+	Synchronized Blocks
+///////////////////////////////////////////////////////////////
+Q39
+class CustomerController{
+	public void addCustomer(String id, String name){
+		System.out.print("[");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(id);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print("-");
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.print(name);
+		try{Thread.sleep(500);}catch(Exception ex){}
+		System.out.println("]");
+	}
+}
+class Demo{
+	public static void main(String args[]){
+		CustomerController c1=new CustomerController();
+		Object ob=new Object();
+		new Thread(){
+			public void run(){
+				//
+				synchronized(ob){
+					c1.addCustomer("C001","Danapala");
+				}
+				//
+			}
+		}.start();
+		new Thread(){
+			public void run(){
+				synchronized(ob){
+					c1.addCustomer("C002","Gunapala");
+				}
+			}
+		}.start();
+	}
+}
+
+///////////////////////////////////////////////////////////////
+Q40
 
 
